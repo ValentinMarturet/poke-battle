@@ -1,24 +1,36 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Cards from './Components/Cards.jsx';
+import Login from './Components/Login';
+
+const axios = require('axios');
+
+// Peticion de lista de pokemones
+// Agarro los primeros 10 ----> State de componente Cards (Contenedor de 10 cartas) va incremenetando de a 10 pokemones 
+// Para el buscador tengo que usar un filter que vaya actualizando el Array de pokemones
 
 function App() {
+
+  const [info, setInfo] = useState({
+    pokemon: {},
+    data: {}
+  });
+
+  const handleChoice = async (pokemon) => {
+    const res = await axios.get(pokemon.url)
+    setInfo({
+      pokemon: pokemon,
+      data: res.data
+    }
+      )
+    console.log('Seleccionaste un pokemon', info)
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Cards handleChoice={handleChoice}/>
+    </>
   );
 }
 

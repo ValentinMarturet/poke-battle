@@ -1,0 +1,26 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    margin: 1rem;
+    border: 2px solid black;
+    transition: box-shadow 200ms;
+    border-radius: 10%;
+}
+
+.card:hover {
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, .7);
+    cursor: pointer;
+}
+
+.img {
+    width: 200px;
+    height: auto;
+}
+
+.pokename {
+    padding:10px 5px;
+    font-family: 'Lato', sans-serif;
+
+}
