@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import './App.css';
-import Cards from './Components/Cards.jsx';
-import Login from './Components/Login';
+import Cards from '../Components/Cards.jsx';
 
 const axios = require('axios');
 

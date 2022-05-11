@@ -4,8 +4,8 @@ import { AuthProvider } from '../auth/AuthContext.jsx';
 import { AuthContext } from '../auth/AuthContext.jsx';
 import ProtectedRoutes from './ProtectedRoutes.jsx';
 import PublicRoute from './PublicRoutes.jsx';
-import Login from '../Components/Login.jsx';
-import App from '../App';
+import Login from '../pages/Login.jsx';
+import App from '../pages/App';
 
 
 

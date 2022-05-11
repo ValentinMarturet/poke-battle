@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from './Card';
 import styles from '../Styles/Cards.module.css'
+import { useGet } from '../hooks/useGet'; 
 
 const axios = require('axios');
 
@@ -8,46 +9,16 @@ const axios = require('axios');
 
 const Cards = ({ handleChoice }) => {
     // DECLARACION DE LOS ESTADOS
-    const [pokemons, setPokemons] = useState({
-        loading:true,
-        error: null,
-        pokemons: null
-    });
     const [page, setPage] = useState(1); 
     const [vista, setVista] = useState([]);
     const [search, setSeach] = useState('')
 
-
-// Peticion inicial de los pokemons
-    const getPokemons = async () =>{
-        try {
-            const res = await axios('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0');
-            setPokemons({
-                loading:false,
-                error: null,
-                pokemons: res.data.results
-            })
-            console.log(pokemons)
-        } catch (e) {
-            setPokemons({
-                loading:false,
-                error: e,
-                pokemons: null
-            });
-            console.log(e)
-        }
-    }
-
-    useEffect(() => {
-        getPokemons();
-        console.log(pokemons.pokemons)
-    }, [])
-
+    const [pokemons, loadingPokemons, errorPokemons] = useGet('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
 
 // ARMADO DE LOS POKEMONS A RENDERIZAR
     useEffect(() => {
-        if (!pokemons.loading) {
-        const filterPokemons = pokemons.pokemons.filter((pokemon)=> {
+        if (!loadingPokemons) {
+        const filterPokemons = pokemons.filter((pokemon)=> {
             return pokemon.name.toLowerCase().includes(search.toLowerCase());
         })
 
