@@ -66,11 +66,6 @@ function App() {
 
   const [battleData, dispatch] = useReducer(reducer, initialState);
 
-  const [info, setInfo] = useState({
-    pokemon: {},
-    data: {},
-  });
-
   const handleChoice = async (pokemon) => {
     const res = await axios.get(pokemon.url);
     if (battleData.myPokemon.pokemon.name) {
