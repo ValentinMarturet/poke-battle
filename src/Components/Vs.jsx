@@ -1,6 +1,6 @@
 import React from "react";
 import { backgroundPerType } from "../utils/backgroundPerType";
-import styles from "../Styles/Selection.module.css";
+import styles from "../Styles/Vs.module.css";
 
 const Vs = ({ myPokemon, enemyPokemon, handleUnselect, startBattle }) => {
   return (

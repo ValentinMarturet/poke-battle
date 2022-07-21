@@ -1,0 +1,12 @@
+.card {
+  border: 2px solid rgb(0, 0, 0);
+  display: flex;
+  color: #fff;
+  width: 500px;
+  cursor: pointer;
+  padding: 1rem;
+  background-color: #8a0e0e;
+  font-family: "Lato", sans-serif;
+  display: flex;
+  flex-direction: column;
+}

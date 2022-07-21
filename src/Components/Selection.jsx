@@ -1,19 +1,27 @@
 import React, { useReducer } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import ReactModal from "react-modal";
 import styles from "../Styles/Selection.module.css";
 import { backgroundPerType } from "../utils/backgroundPerType";
 import AttackCard from "./AttackCard";
+import LifeBar from "./LifeBar";
 import Vs from "./Vs";
+import customStyles from "../Styles/modalStyle";
+import randomNumber from "../utils/randomNumber";
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "ATTACK":
       return {
         ...state,
-        enemy: { ...state.enemy, ps: action.payload(state.enemy.ps) },
+        enemy: { ...state.enemy, ps: action.payload.at(state.enemy.ps) },
       };
     case "EATTACK":
-      return { ...state, me: { ...state.me, ps: action.payload(state.me.ps) } };
+      return {
+        ...state,
+        me: { ...state.me, ps: action.payload.at(state.me.ps) },
+      };
     case "RESET":
       return initialState;
     default:
@@ -41,11 +49,39 @@ const Selection = ({ myPokemon, enemyPokemon, handleUnselect }) => {
     setBattleLoop(true);
   };
   const endBattle = (e) => {
-    e.preventDefault();
     setBattleLoop(false);
     dispatch({ type: "RESET" });
   };
-  const handleAttack = () => {};
+  const handleMyAttack = (attack) => {
+    dispatch({
+      type: "ATTACK",
+      payload: {
+        at: attack,
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (state.enemy.ps > 0 && state.enemy.ps != 100) {
+      dispatch({
+        type: "EATTACK",
+        payload: {
+          at: state.enemy.attacks[randomNumber(1)],
+        },
+      });
+    }
+  }, [state.enemy.ps]);
+
+  // modal logic
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+  useEffect(() => {
+    if (state.me.ps <= 0 || state.enemy.ps <= 0) {
+      setIsOpen(true);
+    }
+  }, [state.me.ps, state.enemy.ps]);
 
   return (
     <>
@@ -61,17 +97,47 @@ const Selection = ({ myPokemon, enemyPokemon, handleUnselect }) => {
       {battleLoop && (
         <>
           <h1>Batalla</h1>
-          <button
-            onClick={() => console.log(myPokemon.data.moves[0].move.name)}
-          >
-            Test
-          </button>
-          <AttackCard
-            at={state.me.attacks[0]}
-            moveName={myPokemon.data.moves[0].move.name}
-            handleAttack={handleAttack}
-            eps={state.enemy.ps}
-          />
+          <div className={styles.battleGround}>
+            <ReactModal
+              isOpen={modalIsOpen}
+              onAfterClose={endBattle}
+              onRequestClose={closeModal}
+              style={customStyles}
+              contentLabel="Example Modal"
+            >
+              <h1>{state.me.ps > 0 ? "Has Ganado!!!" : "Has Perdido."}</h1>
+              <h2>Click para continuar...</h2>
+            </ReactModal>
+            <div className={styles.enemyPokemon}>
+              <img
+                className={styles.img}
+                src={enemyPokemon.data.sprites.front_default}
+              />
+              <LifeBar ps={state.enemy.ps} />
+            </div>
+            <div className={styles.myPokemon}>
+              <img
+                className={styles.img}
+                src={myPokemon.data.sprites.back_default}
+              />
+              <LifeBar ps={state.me.ps} />
+            </div>
+          </div>
+          <button onClick={() => dispatch({ type: "RESET" })}>Reset</button>
+          <div className={styles.attacks}>
+            <AttackCard
+              at={state.me.attacks[0]}
+              moveName={myPokemon.data.moves[0].move.name}
+              handleAttack={handleMyAttack}
+              eps={state.enemy.ps}
+            />
+            <AttackCard
+              at={state.me.attacks[1]}
+              moveName={myPokemon.data.moves[1].move.name}
+              handleAttack={handleMyAttack}
+              eps={state.enemy.ps}
+            />
+          </div>
         </>
       )}
     </>
