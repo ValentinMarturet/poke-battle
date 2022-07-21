@@ -21,4 +21,13 @@
 .LifeContent {
   background-color: rgb(120, 201, 0);
   height: 100%;
+  transition: 2000ms;
+  transition-delay: 1s;
+}
+
+.ELifeContent {
+  background-color: rgb(120, 201, 0);
+  height: 100%;
+  transition: 2000ms;
+  transition-delay: 0s;
 }

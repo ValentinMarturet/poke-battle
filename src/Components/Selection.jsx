@@ -113,14 +113,14 @@ const Selection = ({ myPokemon, enemyPokemon, handleUnselect }) => {
                 className={styles.img}
                 src={enemyPokemon.data.sprites.front_default}
               />
-              <LifeBar ps={state.enemy.ps} />
+              <LifeBar ps={state.enemy.ps} enemy={true} />
             </div>
             <div className={styles.myPokemon}>
               <img
                 className={styles.img}
                 src={myPokemon.data.sprites.back_default}
               />
-              <LifeBar ps={state.me.ps} />
+              <LifeBar ps={state.me.ps} enemy={false} />
             </div>
           </div>
           <button onClick={() => dispatch({ type: "RESET" })}>Reset</button>
