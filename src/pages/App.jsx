@@ -1,14 +1,10 @@
 import { useContext, useReducer } from "react";
-import { useState } from "react";
 import { AuthContext } from "../auth/AuthContext.jsx";
 import Cards from "../Components/Cards.jsx";
 import Selection from "../Components/Selection.jsx";
+import styles from "../Styles/App.module.css";
 
 const axios = require("axios");
-
-// Peticion de lista de pokemones
-// Agarro los primeros 10 ----> State de componente Cards (Contenedor de 10 cartas) va incremenetando de a 10 pokemones
-// Para el buscador tengo que usar un filter que vaya actualizando el Array de pokemones
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -94,7 +90,9 @@ function App() {
 
   return (
     <>
-      <button onClick={handleLogout}>Cerrar Sesión</button>
+      <button className={styles.logOut} onClick={handleLogout}>
+        Cerrar Sesión
+      </button>
       {!battleData.enemyPokemon.pokemon.name && (
         <Cards
           handleChoice={handleChoice}

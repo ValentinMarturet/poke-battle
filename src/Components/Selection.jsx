@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ReactModal from "react-modal";
 import styles from "../Styles/Selection.module.css";
-import { backgroundPerType } from "../utils/backgroundPerType";
 import AttackCard from "./AttackCard";
 import LifeBar from "./LifeBar";
 import Vs from "./Vs";
@@ -62,7 +61,7 @@ const Selection = ({ myPokemon, enemyPokemon, handleUnselect }) => {
   };
 
   useEffect(() => {
-    if (state.enemy.ps > 0 && state.enemy.ps != 100) {
+    if (state.enemy.ps > 0 && state.enemy.ps !== 100) {
       dispatch({
         type: "EATTACK",
         payload: {
@@ -109,21 +108,30 @@ const Selection = ({ myPokemon, enemyPokemon, handleUnselect }) => {
               <h2>Click para continuar...</h2>
             </ReactModal>
             <div className={styles.enemyPokemon}>
+              <h2 className={styles.pokeTag}>{enemyPokemon.data.name}</h2>
               <img
+                alt="pokemon"
                 className={styles.img}
                 src={enemyPokemon.data.sprites.front_default}
               />
               <LifeBar ps={state.enemy.ps} enemy={true} />
             </div>
             <div className={styles.myPokemon}>
+              <h2 className={styles.pokeTag}>{myPokemon.data.name}</h2>
               <img
+                alt="pokemon"
                 className={styles.img}
                 src={myPokemon.data.sprites.back_default}
               />
               <LifeBar ps={state.me.ps} enemy={false} />
             </div>
           </div>
-          <button onClick={() => dispatch({ type: "RESET" })}>Reset</button>
+          <button
+            className={styles.resetBtn}
+            onClick={() => dispatch({ type: "RESET" })}
+          >
+            Reset
+          </button>
           <div className={styles.attacks}>
             <AttackCard
               at={state.me.attacks[0]}

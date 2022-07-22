@@ -53,7 +53,7 @@ const Login = () => {
         />
         <input
           type="submit"
-          value="Log in"
+          value="Log in (No es necesario loguearse)"
           onClick={handleSubmit}
           className={styles.inputButton}
         />

@@ -7,7 +7,7 @@
   cursor: pointer;
   padding: 1rem;
   background-color: #1f1f1f;
-  font-family: "Lato", sans-serif;
+  font-family: "Press Start 2P", cursive;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -20,6 +20,11 @@
 
 .card:active {
   box-shadow: inset 0 0 10px 20px #690000ed;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-family: "Press Start 2P", cursive;
 }
 
 h3 {

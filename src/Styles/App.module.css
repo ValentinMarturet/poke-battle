@@ -1,0 +1,13 @@
+.logOut {
+  border: none;
+  padding: 5px;
+  border-radius: 20px;
+}
+
+.logOut:hover {
+  box-shadow: inset 5px 5px 10px#1616165d;
+}
+
+.logOut:active {
+  box-shadow: inset 5px 5px 20px#161616d0;
+}
