@@ -44,6 +44,7 @@ const Cards = ({ handleChoice, choice }) => {
   // HANDLER Y FUNCION DE BUSQUEDA
   const handleSearch = (e) => {
     setSeach(e.target.value);
+    setPage(1);
   };
 
   return (
@@ -56,8 +57,9 @@ const Cards = ({ handleChoice, choice }) => {
       <div className={styles.center}>
         <button
           onClick={() => {
-            setPage(page - 1);
+            setPage(page > 1 ? page - 1 : page);
           }}
+          className={styles.pageBtnL}
         >
           Anterior
         </button>
@@ -68,12 +70,14 @@ const Cards = ({ handleChoice, choice }) => {
           placeholder="Busque un Pokemon..."
           value={search}
           onChange={handleSearch}
+          className={styles.searchBar}
         />
 
         <button
           onClick={() => {
-            setPage(page + 1);
+            setPage(page < 100 ? page + 1 : page);
           }}
+          className={styles.pageBtnR}
         >
           Siguiente
         </button>
